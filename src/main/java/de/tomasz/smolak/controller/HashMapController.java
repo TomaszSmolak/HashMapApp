@@ -43,10 +43,10 @@ public class HashMapController {
      * Initialisiert alle Button-Aktionen (Event Listener).
      */
     private void initController() {
-        view.addButton.addActionListener(e -> addUser());
-        view.loginButton.addActionListener(e -> testLogin());
-        view.deleteButton.addActionListener(e -> deleteUser());
-        view.saveButton.addActionListener(e -> saveUsers());
+        view.addButton.addActionListener(_ -> addUser());
+        view.loginButton.addActionListener(_ -> testLogin());
+        view.deleteButton.addActionListener(_ -> deleteUser());
+        view.saveButton.addActionListener(_ -> saveUsers());
     }
 
     /**
