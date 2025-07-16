@@ -43,7 +43,7 @@ public class HashMapController {
      * Initialisiert alle Button-Aktionen (Event Listener).
      */
     private void initController() {
-        view.addButton.addActionListener(_ -> addUser());
+        view.addButton.addActionListener(_ -> addBenutzer());
         view.loginButton.addActionListener(_ -> testLogin());
         view.deleteButton.addActionListener(_ -> deleteUser());
         view.saveButton.addActionListener(_ -> saveUsers());
@@ -53,16 +53,16 @@ public class HashMapController {
      * Fügt einen neuen Benutzer mit Benutzernamen und Passwort hinzu.
      * Zeigt eine Erfolgsmeldung und aktualisiert die Benutzerliste.
      */
-    private void addUser() {
-        String username = view.usernameField.getText().trim();
-        String password = new String(view.passwordField.getPassword()).trim();
+    private void addBenutzer() {
+        String benutzername = view.usernameField.getText().trim();
+        String passwort = new String(view.passwordField.getPassword()).trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (benutzername.isEmpty() || passwort.isEmpty()) {
             showMessage("Bitte Benutzername und Passwort eingeben.");
             return;
         }
 
-        service.addBenutzer(username, password);
+        service.addBenutzer(benutzername, passwort);
         showMessage("Benutzer hinzugefügt.");
         updateUserList();
         clearInput();
@@ -73,15 +73,15 @@ public class HashMapController {
      * Gibt Rückmeldung über Erfolg oder Misserfolg.
      */
     private void testLogin() {
-        String username = view.usernameField.getText().trim();
-        String password = new String(view.passwordField.getPassword()).trim();
+        String benutzername = view.usernameField.getText().trim();
+        String passwort = new String(view.passwordField.getPassword()).trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (benutzername.isEmpty() || passwort.isEmpty()) {
             showMessage("Bitte Benutzername und Passwort eingeben.");
             return;
         }
 
-        boolean success = service.checkLogin(username, password);
+        boolean success = service.checkLogin(benutzername, passwort);
 
         if (success) {
             showMessage("Login erfolgreich!");
