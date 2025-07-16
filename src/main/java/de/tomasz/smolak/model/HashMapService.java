@@ -21,38 +21,38 @@ import java.util.Map;
 public class HashMapService {
 
     /** Interne Map zur Speicherung der Benutzer. */
-    private final Map<String, String> users = new HashMap<>();
+    private final Map<String, String> benutzer = new HashMap<>();
 
     /** Pfad zur Datei, in der die Benutzerdaten gespeichert werden. */
-    private final String filePath;
+    private final String dateiPfad;
 
     /**
      * Erstellt einen neuen {@code HashMapService} mit dem angegebenen Dateipfad
      * und lädt beim Start bestehende Benutzerdaten.
      *
-     * @param filePath Pfad zur Datei mit gespeicherten Benutzerdaten
+     * @param dateiPfad Pfad zur Datei mit gespeicherten Benutzerdaten
      */
-    public HashMapService(String filePath) {
-        this.filePath = filePath;
-        loadUsers();
+    public HashMapService(String dateiPfad) {
+        this.dateiPfad = dateiPfad;
+        ladeBenutzerListe();
     }
 
     /**
      * Lädt die Benutzerdaten aus der Datei in die HashMap.
      * Falls die Datei nicht existiert, wird nichts geladen.
      */
-    private void loadUsers() {
-        File file = new File(filePath);
-        if (!file.exists()) return;
+    private void ladeBenutzerListe() {
+        File datei = new File(dateiPfad);
+        if (!datei.exists()) return;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(datei))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":", 2);
                 if (parts.length == 2) {
-                    String username = parts[0].trim();
-                    String password = parts[1].trim();
-                    users.put(username, password);
+                    String benutzername = parts[0].trim();
+                    String passwort = parts[1].trim();
+                    benutzer.put(benutzername, passwort);
                 }
             }
         } catch (IOException e) {
@@ -64,32 +64,32 @@ public class HashMapService {
      * Fügt einen neuen Benutzer hinzu oder überschreibt das Passwort,
      * falls der Benutzername bereits existiert.
      *
-     * @param username Benutzername
-     * @param password Passwort
+     * @param benutzername Benutzername
+     * @param passwort Passwort
      */
-    public void addUser(String username, String password) {
-        users.put(username, password);
+    public void addBenutzer(String benutzername, String passwort) {
+        benutzer.put(benutzername, passwort);
     }
 
     /**
      * Prüft, ob der Benutzername existiert und das Passwort korrekt ist.
      *
-     * @param username Benutzername
-     * @param password Passwort
+     * @param benutzername Benutzername
+     * @param passwort Passwort
      * @return {@code true}, wenn die Zugangsdaten korrekt sind, sonst {@code false}
      */
-    public boolean checkLogin(String username, String password) {
-        return users.containsKey(username) && users.get(username).equals(password);
+    public boolean checkLogin(String benutzername, String passwort) {
+        return benutzer.containsKey(benutzername) && benutzer.get(benutzername).equals(passwort);
     }
 
     /**
      * Entfernt einen Benutzer anhand des Namens.
      *
-     * @param username Benutzername
+     * @param benutzername Benutzername
      * @return {@code true}, wenn der Benutzer existierte und entfernt wurde
      */
-    public boolean removeUser(String username) {
-        return users.remove(username) != null;
+    public boolean removeUser(String benutzername) {
+        return benutzer.remove(benutzername) != null;
     }
 
     /**
@@ -98,7 +98,7 @@ public class HashMapService {
      * @return Eine Map mit Benutzernamen als Schlüssel und Passwörtern als Werte
      */
     public Map<String, String> getAllUsers() {
-        return users;
+        return benutzer;
     }
 
     /**
@@ -106,8 +106,8 @@ public class HashMapService {
      * Jeder Eintrag wird im Format {@code benutzername:passwort} gespeichert.
      */
     public void saveUsers() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Map.Entry<String, String> entry : users.entrySet()) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateiPfad))) {
+            for (Map.Entry<String, String> entry : benutzer.entrySet()) {
                 writer.write(entry.getKey() + ":" + entry.getValue());
                 writer.newLine();
             }

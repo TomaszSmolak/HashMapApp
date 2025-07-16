@@ -62,7 +62,7 @@ public class HashMapController {
             return;
         }
 
-        service.addUser(username, password);
+        service.addBenutzer(username, password);
         showMessage("Benutzer hinzugefügt.");
         updateUserList();
         clearInput();
