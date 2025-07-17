@@ -23,6 +23,21 @@ public class HashMapService {
     /** Interne Map zur Speicherung der Benutzer. */
     private final Map<String, String> benutzer = new HashMap<>();
 
+    /**
+     * Fügt einen neuen Benutzer hinzu oder überschreibt das Passwort,
+     * falls der Benutzername bereits existiert.
+     *
+     * @param benutzername Benutzername
+     * @param passwort Passwort
+     */
+    public void addBenutzer(String benutzername, String passwort) {
+
+        benutzer.put(benutzername, passwort);
+    }
+
+
+
+
     /** Pfad zur Datei, in der die Benutzerdaten gespeichert werden. */
     private final String dateiPfad;
 
@@ -60,16 +75,7 @@ public class HashMapService {
         }
     }
 
-    /**
-     * Fügt einen neuen Benutzer hinzu oder überschreibt das Passwort,
-     * falls der Benutzername bereits existiert.
-     *
-     * @param benutzername Benutzername
-     * @param passwort Passwort
-     */
-    public void addBenutzer(String benutzername, String passwort) {
-        benutzer.put(benutzername, passwort);
-    }
+
 
     /**
      * Prüft, ob der Benutzername existiert und das Passwort korrekt ist.
